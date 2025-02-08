@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بازی سنگ، کاغذ، قیچی</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        #startButton:hover,
+        #continueButton:hover {
+            background-color: #ffa500;
+            transform: scale(1.1);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eeeeee;
+            border-radius: 5px;
+            font-size: 18px;
+            display: none;
+        }
+
+        .stats {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            button {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 10px;
+                margin: 10px;
+            }
+        }
+
+        .animation {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInOut 1s linear infinite;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        #continueButton {
+            display: none;
+            margin-top: 20px;
+            font-size: 20px;
+            padding: 12px 30px;
+            background-color: #ffa500;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>بازی سنگ، کاغذ، قیچی</h1>
+        <p>یکی از گزینه‌ها را انتخاب کن:</p>
+
+        <button id="startButton" onclick="startGame()">شروع بازی</button>
+
+        <div id="animationContainer" style="display: none;">
+            <p class="animation" id="animationText"></p>
+        </div>
+
+        <div id="choices" style="display: none;">
+            <div class="button-container">
+                <button onclick="chooseOption('سنگ')">سنگ</button>
+                <button onclick="chooseOption('کاغذ')">کاغذ</button>
+                <button onclick="chooseOption('قیچی')">قیچی</button>
+            </div>
+        </div>
+
+        <div class="result" id="result">
+            <p id="userChoice"></p>
+            <p id="computerChoice"></p>
+            <p id="gameResult"></p>
+        </div>
+
+        <div class="stats">
+            <p>تعداد دورهای بازی: <span id="roundCount">0</span></p>
+            <p>برد: <span id="wins">0</span> | باخت: <span id="losses">0</span> | مساوی: <span id="draws">0</span></p>
+        </div>
+
+        <button id="continueButton" onclick="continueGame()">ادامه بازی</button>
+    </div>
+
+    <script>
+        window.alert("سلام خوشگلا! :)");
+        window.alert("به بازی سنگ، کاغذ، قیچی لیدا خوش اومدید! :)");
+
+        let round = 0;
+        let wins = 0;
+        let losses = 0;
+        let draws = 0;
+
+        function startGame() {
+            // مخفی کردن دکمه شروع و نمایش دکمه‌های انتخاب
+            document.getElementById('startButton').style.display = 'none';
+            document.getElementById('choices').style.display = 'block';
+
+            // نمایش انیمیشن قبل از انتخاب
+            document.getElementById('animationContainer').style.display = 'none'; // مخفی کردن انیمیشن تا وقتی کاربر انتخاب نکرده
+        }
+
+        function continueGame() {
+            // افزایش تعداد دور
+            round++;
+            document.getElementById('roundCount').textContent = round;
+
+            // پنهان کردن دکمه ادامه و نمایش دکمه‌های انتخاب دوباره
+            document.getElementById('continueButton').style.display = 'none';
+            document.getElementById('choices').style.display = 'block';
+            document.getElementById('result').style.display = 'none'; // مخفی کردن نتیجه
+            document.getElementById('animationContainer').style.display = 'none'; // مخفی کردن انیمیشن
+        }
+
+        function chooseOption(userChoice) {
+            // پنهان کردن دکمه‌های انتخاب و نمایش انیمیشن
+            document.getElementById('choices').style.display = 'none';
+            document.getElementById('animationContainer').style.display = 'block'; // نمایش انیمیشن
+
+            let animationText = document.getElementById('animationText');
+            let choices = ['سنگ', 'کاغذ', 'قیچی'];
+            let index = 0;
+
+            function displayChoices() {
+                animationText.textContent = choices[index];
+                index++;
+                if (index >= choices.length) {
+                    index = 0;
+                }
+            }
+
+            let intervalId = setInterval(displayChoices, 500); // تغییر هر نیم ثانیه
+
+            // بعد از 2 ثانیه توقف انیمیشن و انتخاب نهایی
+            setTimeout(function() {
+                clearInterval(intervalId); // توقف انیمیشن
+                let computerChoice = choices[Math.floor(Math.random() * 3)]; // انتخاب تصادفی کامپیوتر
+
+                // محاسبه نتیجه بازی
+                let result = '';
+                if (userChoice === computerChoice) {
+                    result = 'مساوی!';
+                    draws++;
+                    document.getElementById('draws').textContent = draws;
+                } else if (
+                    (userChoice === 'سنگ' && computerChoice === 'قیچی') ||
+                    (userChoice === 'کاغذ' && computerChoice === 'سنگ') ||
+                    (userChoice === 'قیچی' && computerChoice === 'کاغذ')
+                ) {
+                    result = 'شما بردید!';
+                    wins++;
+                    document.getElementById('wins').textContent = wins;
+                } else {
+                    result = 'شما باختید!';
+                    losses++;
+                    document.getElementById('losses').textContent = losses;
+                }
+
+                // نمایش نتیجه بازی
+                document.getElementById('userChoice').textContent = 'شما: ' + userChoice;
+                document.getElementById('computerChoice').textContent = 'انتخاب بازی: ' + computerChoice;
+                document.getElementById('gameResult').textContent = result;
+
+                document.getElementById('result').style.display = 'block'; // نمایش نتیجه
+                document.getElementById('continueButton').style.display = 'block'; // نمایش دکمه ادامه
+                window.alert("نتیجه بازی: " + result); // نمایش پیغام
+
+            }, 2000); // بعد از 2 ثانیه انتخاب نهایی
+        }
+    </script>
+
+</body>
+</html>
+
+
+
