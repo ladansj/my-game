@@ -155,30 +155,25 @@
         let draws = 0;
 
         function startGame() {
-            // مخفی کردن دکمه شروع و نمایش دکمه‌های انتخاب
             document.getElementById('startButton').style.display = 'none';
             document.getElementById('choices').style.display = 'block';
 
-            // نمایش انیمیشن قبل از انتخاب
-            document.getElementById('animationContainer').style.display = 'none'; // مخفی کردن انیمیشن تا وقتی کاربر انتخاب نکرده
+            document.getElementById('animationContainer').style.display = 'none'; 
         }
 
         function continueGame() {
-            // افزایش تعداد دور
             round++;
             document.getElementById('roundCount').textContent = round;
 
-            // پنهان کردن دکمه ادامه و نمایش دکمه‌های انتخاب دوباره
             document.getElementById('continueButton').style.display = 'none';
             document.getElementById('choices').style.display = 'block';
-            document.getElementById('result').style.display = 'none'; // مخفی کردن نتیجه
-            document.getElementById('animationContainer').style.display = 'none'; // مخفی کردن انیمیشن
+            document.getElementById('result').style.display = 'none'; 
+            document.getElementById('animationContainer').style.display = 'none'; 
         }
 
         function chooseOption(userChoice) {
-            // پنهان کردن دکمه‌های انتخاب و نمایش انیمیشن
             document.getElementById('choices').style.display = 'none';
-            document.getElementById('animationContainer').style.display = 'block'; // نمایش انیمیشن
+            document.getElementById('animationContainer').style.display = 'block'; 
 
             let animationText = document.getElementById('animationText');
             let choices = ['سنگ', 'کاغذ', 'قیچی'];
@@ -192,14 +187,12 @@
                 }
             }
 
-            let intervalId = setInterval(displayChoices, 500); // تغییر هر نیم ثانیه
+            let intervalId = setInterval(displayChoices, 500); 
 
-            // بعد از 2 ثانیه توقف انیمیشن و انتخاب نهایی
             setTimeout(function() {
-                clearInterval(intervalId); // توقف انیمیشن
-                let computerChoice = choices[Math.floor(Math.random() * 3)]; // انتخاب تصادفی کامپیوتر
+                clearInterval(intervalId); 
+                let computerChoice = choices[Math.floor(Math.random() * 3)]; 
 
-                // محاسبه نتیجه بازی
                 let result = '';
                 if (userChoice === computerChoice) {
                     result = 'مساوی!';
@@ -219,21 +212,19 @@
                     document.getElementById('losses').textContent = losses;
                 }
 
-                // نمایش نتیجه بازی
                 document.getElementById('userChoice').textContent = 'شما: ' + userChoice;
                 document.getElementById('computerChoice').textContent = 'انتخاب بازی: ' + computerChoice;
                 document.getElementById('gameResult').textContent = result;
 
-                document.getElementById('result').style.display = 'block'; // نمایش نتیجه
-                document.getElementById('continueButton').style.display = 'block'; // نمایش دکمه ادامه
-                window.alert("نتیجه بازی: " + result); // نمایش پیغام
+                document.getElementById('result').style.display = 'block'; 
+                document.getElementById('continueButton').style.display = 'block'; 
+                window.alert("نتیجه بازی: " + result); 
 
-            }, 2000); // بعد از 2 ثانیه انتخاب نهایی
+            }, 2000); 
         }
     </script>
 
 </body>
 </html>
-
 
 
