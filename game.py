@@ -3,7 +3,6 @@ import random
 choices = ["سنگ", "کاغذ", "قیچی"]
 
 computer_choice = random.choice(choices)
-
 player_choice = input("یکی از گزینه‌های 'سنگ'، 'کاغذ' یا 'قیچی' را انتخاب کن: ")
 
 print(f"انتخاب شما: {player_choice}")
